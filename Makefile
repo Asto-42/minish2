@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jquil <jquil@student.42.fr>                +#+  +:+       +#+         #
+#    By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/19 11:08:46 by jugingas          #+#    #+#              #
-#    Updated: 2023/10/30 12:39:08 by jquil            ###   ########.fr        #
+#    Updated: 2023/10/30 14:27:32 by jugingas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC		=		src/main.c						\
 				src/single_double_quote2.c		\
 				src/single_double_quote3.c		\
 				src/signals.c					\
+				src/dlx.c						\
 				src/pipe.c						\
 				src/pipe2.c						\
 				src/pipe3.c						\

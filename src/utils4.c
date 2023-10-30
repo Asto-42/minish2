@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 13:59:29 by jquil             #+#    #+#             */
-/*   Updated: 2023/10/30 12:40:59 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 14:57:35 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,11 @@ char	*need_remove_quote_again_2(char *new, char *str, int *tab, int size)
 	{
 		if (str[tab[x]] == str[tab[x + 1]]
 			&& str[tab[x + 2]] == str[tab[x + 3]])
-			remove_quote_from_new(new, str[tab[x + 2]]);
+			new = remove_quote_from_new(new, str[tab[x + 2]]);
 		x += 4;
 	}
+	if (strncmp(str, new, ft_strlen(str)))
+		free(str);
 	return (new);
 }
 
@@ -80,7 +82,7 @@ char	*need_remove_quote_again(char *new, char *str)
 			quote++;
 	}
 	if (quote % 2 != 0)
-		return (new);
+		return (free(str), new);
 	tab = malloc (quote * sizeof(int));
 	x = -1;
 	while (str[++x])

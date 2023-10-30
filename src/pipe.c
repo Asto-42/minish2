@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 18:21:22 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/30 11:19:21 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 14:26:10 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ int	check_redirect(char *cmd)
 
 void	child(t_pp *pp, t_shell *shell, char *cmd, int idx)
 {
+	int	i;
+
+	i = -1;
 	pp->pid = fork();
 	if (pp->pid == 0)
 	{
@@ -44,7 +47,7 @@ void	child(t_pp *pp, t_shell *shell, char *cmd, int idx)
 			check_redirect(cmd);
 			if (pp->no_redirec != NULL && pp->no_redirec[0] != NULL)
 			{
-				for (int i = 0; pp->no_redirec[i]; i++)
+				while (pp->no_redirec[++i])
 					pp->no_redirec[i] = anti_douillax(pp->no_redirec[i]);
 				execve(pp->cmd_name, pp->no_redirec, shell->env);
 				printf("%s: command not found\n", pp->cmd_name);

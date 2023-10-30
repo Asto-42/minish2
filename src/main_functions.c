@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:18:08 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/30 11:21:36 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 14:24:08 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ void	main_child(t_shell *shell)
 	char	*cmd_name;
 	char	*cmd;
 	char	**nr;
+	int		i;
 
 	nr = ignore_redirections(ft_split(shell->tokens[0], ' '), 1);
 	cmd = get_cmd(shell->tokens[0], shell->env);
 	cmd_name = NULL;
 	check_redirect(shell->tokens[0]);
-	for (int i = 0; nr[i]; i++)
+	i = -1;
+	while (nr[++i])
 		nr[i] = anti_douillax(nr[i]);
 	if (nr != NULL && nr[0] != NULL)
 	{
@@ -30,11 +32,12 @@ void	main_child(t_shell *shell)
 		shell->tokens[0] = anti_douillax(shell->tokens[0]);
 		cmd_name = get_cmd(shell->tokens[0], shell->env);
 		printf("%s: command not found\n", cmd_name);
-		ft_exit(shell, ft_strdup("127"));
 	}
 	free(cmd_name);
 	free(cmd);
 	power_free(nr);
+	if (nr)
+		ft_exit(shell, ft_strdup("127"));
 	ft_exit(shell, ft_strdup("0"));
 }
 
