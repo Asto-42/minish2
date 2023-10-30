@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 11:41:49 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/27 17:03:51 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 11:22:32 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ char	*init_builtins(char *cmd);
 void	patch(t_shell *shell, char *arg);
 void	prompt(t_shell *shell);
 void	main_core(t_shell *shell);
-char    *anti_douillax(char *str);
-char    *douillax(char *str);
-int    check_endz(char *str, char c);
-void    free_it(t_pp *pp);
+char	*anti_douillax(char *str);
+char	*douillax(char *str);
+int		check_endz(char *str, char c);
+void	free_it(t_pp *pp);
 
 //-------- Utils --------
 

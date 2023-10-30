@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 16:42:36 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/27 17:01:22 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 11:20:38 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,32 @@
 
 int	g_signal = 0;
 
-void    builtchild(int i, t_shell *shell, char *arg, int idx)
+void	builtchild(int i, t_shell *shell, char *arg, int idx)
 {
-    int    status;
-    int    pid;
-    int    do_exit;
+	int	status;
+	int	pid;
+	int	do_exit;
 
-    status = 0;
-    pid = 0;
-    do_exit = 0;
-    if (i != 1 && i != 3 && i != 4 && i != 6)
-    {
-        pid = fork();
-        do_exit = 1;
-    }
-    if (pid == 0)
-    {
-        check_redirect(shell->tokens[idx]);
-        arg = anti_douillax(arg);
-        shell->errno = shell->f_ptr[i](shell, arg);
-        if (do_exit || i == 6)
-            patch(shell, arg);
-    }
-    else
-        waitpid(pid, &status, 0);
-    if (WIFEXITED(status) && do_exit)
-        shell->errno = WEXITSTATUS(status);
+	status = 0;
+	pid = 0;
+	do_exit = 0;
+	if (i != 1 && i != 3 && i != 4 && i != 6)
+	{
+		pid = fork();
+		do_exit = 1;
+	}
+	if (pid == 0)
+	{
+		check_redirect(shell->tokens[idx]);
+		arg = anti_douillax(arg);
+		shell->errno = shell->f_ptr[i](shell, arg);
+		if (do_exit || i == 6)
+			patch(shell, arg);
+	}
+	else
+		waitpid(pid, &status, 0);
+	if (WIFEXITED(status) && do_exit)
+		shell->errno = WEXITSTATUS(status);
 }
 
 int	call_builtins(t_shell *shell, int idx)
@@ -69,15 +69,15 @@ int	call_builtins(t_shell *shell, int idx)
 	return (i);
 }
 
-void    start_loop(t_shell *shell)
+void	start_loop(t_shell *shell)
 {
-    g_signal = 1;
-    prompt(shell);
-    if (shell->line == NULL)
-        ft_exit(shell, NULL);
-    add_history(shell->line);
-    shell->line = douillax(shell->line);
-    shell->badline_errno = badline(shell->line, shell);
+	g_signal = 1;
+	prompt(shell);
+	if (shell->line == NULL)
+		ft_exit(shell, NULL);
+	add_history(shell->line);
+	shell->line = douillax(shell->line);
+	shell->badline_errno = badline(shell->line, shell);
 }
 
 int	main(int ac, char **av, char **env)

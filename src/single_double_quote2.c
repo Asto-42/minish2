@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:15:13 by jquil             #+#    #+#             */
-/*   Updated: 2023/10/27 17:04:10 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 11:20:14 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ char	**ft_split_str(t_shell *shell, char *str, char **tab)
 		return (NULL);
 	while (tab[++z])
 	{
-		if (ft_need_expand(tab[z]) != -1 && expand_not_quoted(tab[z], ft_need_expand(tab[z])) == 1)
+		if (ft_need_expand(tab[z]) != -1
+			&& expand_not_quoted(tab[z], ft_need_expand(tab[z])) == 1)
 		{
 			tab[z] = ft_extension_of_the_territory(shell, tab[z],
 					ft_need_expand(tab[z]) + 1);

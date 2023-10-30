@@ -6,36 +6,36 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:18:08 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/27 17:08:50 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 11:21:36 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    main_child(t_shell *shell)
+void	main_child(t_shell *shell)
 {
-    char    *cmd_name;
-    char    *cmd;
-    char    **nr;
+	char	*cmd_name;
+	char	*cmd;
+	char	**nr;
 
-    nr = ignore_redirections(ft_split(shell->tokens[0], ' '), 1);
-    cmd = get_cmd(shell->tokens[0], shell->env);
-    cmd_name = NULL;
-    check_redirect(shell->tokens[0]);
-    for (int i = 0; nr[i]; i++)
-        nr[i] = anti_douillax(nr[i]);
-    if (nr != NULL && nr[0] != NULL)
-    {
-        execve(cmd, nr, shell->env);
+	nr = ignore_redirections(ft_split(shell->tokens[0], ' '), 1);
+	cmd = get_cmd(shell->tokens[0], shell->env);
+	cmd_name = NULL;
+	check_redirect(shell->tokens[0]);
+	for (int i = 0; nr[i]; i++)
+		nr[i] = anti_douillax(nr[i]);
+	if (nr != NULL && nr[0] != NULL)
+	{
+		execve(cmd, nr, shell->env);
 		shell->tokens[0] = anti_douillax(shell->tokens[0]);
-        cmd_name = get_cmd(shell->tokens[0], shell->env);
-        printf("%s: command not found\n", cmd_name);
-        ft_exit(shell, ft_strdup("127"));
-    }
-    free(cmd_name);
-    free(cmd);
-    power_free(nr);
-    ft_exit(shell, ft_strdup("0"));
+		cmd_name = get_cmd(shell->tokens[0], shell->env);
+		printf("%s: command not found\n", cmd_name);
+		ft_exit(shell, ft_strdup("127"));
+	}
+	free(cmd_name);
+	free(cmd);
+	power_free(nr);
+	ft_exit(shell, ft_strdup("0"));
 }
 
 void	main_core2(t_shell *shell, int status)

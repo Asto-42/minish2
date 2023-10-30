@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:08:05 by jquil             #+#    #+#             */
-/*   Updated: 2023/10/27 17:03:47 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 11:21:17 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ int	is_redirect(char *str, char *next)
 		return (2);
 	return (0);
 }
-void    free_it(t_pp *pp)
+
+void	free_it(t_pp *pp)
 {
-    power_free(pp->no_redirec);
-    free(pp->cmd_name);
-    power_free(pp->tab);
+	power_free(pp->no_redirec);
+	free(pp->cmd_name);
+	power_free(pp->tab);
 }
 
 char	**ignore_redirections(char **tab, int fr)

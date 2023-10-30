@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 18:21:22 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/27 17:01:47 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 11:19:21 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,35 +27,35 @@ int	check_redirect(char *cmd)
 	return (fd);
 }
 
-void    child(t_pp *pp, t_shell *shell, char *cmd, int idx)
+void	child(t_pp *pp, t_shell *shell, char *cmd, int idx)
 {
-    pp->pid = fork();
-    if (pp->pid == 0)
-    {
-        do_the_redirections(pp);
-        free(pp->pidtab);
-        free(pp->pipe);
-        if (call_builtins(shell, idx) == 7)
-        {
-            pp->tab = ft_split(cmd, ' ');
-            pp->no_redirec = ignore_redirections(pp->tab, 0);
-            pp->name = pp->tab[0];
-            pp->cmd_name = get_cmd(pp->name, shell->env);
-            check_redirect(cmd);
-            if (pp->no_redirec != NULL && pp->no_redirec[0] != NULL)
-            {
-                for (int i = 0; pp->no_redirec[i]; i++)
-                    pp->no_redirec[i] = anti_douillax(pp->no_redirec[i]);
-                execve(pp->cmd_name, pp->no_redirec, shell->env);
-                printf("%s: command not found\n", pp->cmd_name);
-                ft_exit(shell, ft_strdup("127"));
-            }
-            free_it(pp);
-            ft_exit(shell, ft_strdup("0"));
-        }
-        ft_exit(shell, ft_strdup("0"));
-    }
-    end_pipe(pp, pp->no_redirec, pp->tab, pp->cmd_name);
+	pp->pid = fork();
+	if (pp->pid == 0)
+	{
+		do_the_redirections(pp);
+		free(pp->pidtab);
+		free(pp->pipe);
+		if (call_builtins(shell, idx) == 7)
+		{
+			pp->tab = ft_split(cmd, ' ');
+			pp->no_redirec = ignore_redirections(pp->tab, 0);
+			pp->name = pp->tab[0];
+			pp->cmd_name = get_cmd(pp->name, shell->env);
+			check_redirect(cmd);
+			if (pp->no_redirec != NULL && pp->no_redirec[0] != NULL)
+			{
+				for (int i = 0; pp->no_redirec[i]; i++)
+					pp->no_redirec[i] = anti_douillax(pp->no_redirec[i]);
+				execve(pp->cmd_name, pp->no_redirec, shell->env);
+				printf("%s: command not found\n", pp->cmd_name);
+				ft_exit(shell, ft_strdup("127"));
+			}
+			free_it(pp);
+			ft_exit(shell, ft_strdup("0"));
+		}
+		ft_exit(shell, ft_strdup("0"));
+	}
+	end_pipe(pp, pp->no_redirec, pp->tab, pp->cmd_name);
 }
 
 void	init_pidtab(t_pp *pp)
