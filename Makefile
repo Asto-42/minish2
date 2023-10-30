@@ -6,7 +6,7 @@
 #    By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/19 11:08:46 by jugingas          #+#    #+#              #
-#    Updated: 2023/10/30 14:27:32 by jugingas         ###   ########.fr        #
+#    Updated: 2023/10/30 15:06:55 by jugingas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC		=		src/main.c						\
 				src/pipe.c						\
 				src/pipe2.c						\
 				src/pipe3.c						\
+				src/pipe4.c						\
 				src/redirections.c				\
 				src/get_heredoc.c				\
 				src/init_struct.c				\

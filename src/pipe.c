@@ -6,7 +6,7 @@
 /*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 18:21:22 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/30 14:26:10 by jugingas         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:08:18 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,7 @@ void	child(t_pp *pp, t_shell *shell, char *cmd, int idx)
 		free(pp->pipe);
 		if (call_builtins(shell, idx) == 7)
 		{
-			pp->tab = ft_split(cmd, ' ');
-			pp->no_redirec = ignore_redirections(pp->tab, 0);
-			pp->name = pp->tab[0];
-			pp->cmd_name = get_cmd(pp->name, shell->env);
-			check_redirect(cmd);
+			init_pipe(pp, cmd, shell);
 			if (pp->no_redirec != NULL && pp->no_redirec[0] != NULL)
 			{
 				while (pp->no_redirec[++i])
@@ -54,7 +50,6 @@ void	child(t_pp *pp, t_shell *shell, char *cmd, int idx)
 				ft_exit(shell, ft_strdup("127"));
 			}
 			free_it(pp);
-			ft_exit(shell, ft_strdup("0"));
 		}
 		ft_exit(shell, ft_strdup("0"));
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 11:41:49 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/30 12:40:05 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 15:06:36 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ int		cmd_count(char **token);
 void	create_pipes(t_pp *pp);
 void	close_pipes(t_pp *pp);
 void	do_the_redirections(t_pp *pp);
+void	init_pipe(t_pp *pp, char *cmd, t_shell *shell);
 void	dup2_spe(int z, int f);
 int		redirect(char **cmdtab, int i);
 int		tab_len(char **tab);
