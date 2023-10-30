@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:02:39 by jquil             #+#    #+#             */
-/*   Updated: 2023/10/26 15:42:39 by jugingas         ###   ########.fr       */
+/*   Updated: 2023/10/30 12:33:23 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char	*remove_quote_3(char *str, int nb, int type)
 	char	*new;
 
 	y = -1;
-	new = malloc ((ft_strlen(str) - nb + 2) * sizeof (char));
+	new = ft_calloc((ft_strlen(str) - nb + 2), sizeof (char));
 	if (!new)
 		return (NULL);
 	x = -1;

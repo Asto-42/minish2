@@ -6,38 +6,11 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:59:22 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/30 11:19:57 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 12:37:23 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*cut_str_env(char *env)
-{
-	int		x;
-	char	*tmp;
-
-	x = -1;
-	while (env[++x] && env[x] != '=')
-		;
-	tmp = malloc ((x + 1) * sizeof(char));
-	x = -1;
-	while (env[++x] && env[x] != '=')
-		tmp[x] = env[x];
-	tmp[x] = '\0';
-	return (tmp);
-}
-
-int	ft_strenvcmp(char *tmp, char *env)
-{
-	char	*comp;
-
-	comp = cut_str_env(env);
-	if (ft_strncmp(comp, tmp, ft_strlen(comp)) == 0
-		&& ft_strlen(comp) == ft_strlen(tmp))
-		return (free(comp), 1);
-	return (free(comp), 0);
-}
 
 char	*ft_extension_of_the_territory_2(t_shell *s, char *st,
 	char *tmp, int exp)

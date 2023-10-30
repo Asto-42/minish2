@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 11:41:49 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/30 11:22:32 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 12:40:05 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ int		ft_checkcmd(char *s1, char *s2);
 char	*ft_extension_of_the_territory(t_shell *shell, char *str, int exp);
 char	*ft_str_eg_cpy(char *env, char *str);
 char	*remove_quote(char *str);
+char	*cut_str_env(char *env);
+int		ft_strenvcmp(char *tmp, char *env);
 char	*itoa(int nb);
 int		ft_atoi(const char *nptr);
 char	*get_next_line(int fd, char *del);

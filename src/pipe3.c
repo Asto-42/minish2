@@ -6,21 +6,11 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:08:05 by jquil             #+#    #+#             */
-/*   Updated: 2023/10/30 11:21:17 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 12:38:16 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	tab_len(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-}
 
 int	is_redirect(char *str, char *next)
 {

@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 13:59:29 by jquil             #+#    #+#             */
-/*   Updated: 2023/10/27 16:59:17 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 12:40:59 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,74 +17,79 @@ char	*remove_quote_2(char *str, char *new, int nb, int type)
 	if (nb != 0)
 	{
 		new = remove_quote_3(str, nb, type);
-		return (free(str), new);
+		return (new);
 	}
 	else
 		return (str);
 }
 
-// bool	need_remove_quote(char *str, char *new)
-// {
-// 	int	type;
-// 	int	x;
-// 	int	tmp;
-// 	int	quote;
-
-// 	x = -1;
-// 	quote = 0;
-// 	type = new[0];
-// 	while (str[++x])
-// 	{
-// 		if (str[x] == type)
-// 		{
-// 			tmp = x;
-// 			while (x >= 0)
-// 			{
-// 				if (str[x] == 39 || str[x] == 34)
-// 					quote++;
-// 				x--;
-// 			}
-// 			x = tmp + 1;
-// 			while (str[x] && str[x] != str[tmp])
-// 				x++;
-// 			while (str[x])
-// 			{
-// 				if (str[x] == 39 || str[x] == 34)
-// 					quote++;
-// 				x++;
-// 			}
-// 		}
-// 	}
-// 	printf("quote = %i\n", quote);
-// 	if (quote >= 2)
-// 		return (0);
-// 	else
-// 		return (1);
-// }
-
-bool	need_remove_quote_again(char *new/*char *str*/)
+char	*remove_quote_from_new(char *new, char c)
 {
 	int	x;
-	int	type;
+	int	nb;
+	int	tmp;
 
 	x = -1;
-	// if (need_remove_quote(str, new) == 0)
-	// 	return (0);
-	while (new[++x])
+	nb = 0;
+	while (new[++x] && nb < 2)
 	{
-		if (new[x] == 34 || new[x] == 39)
+		if (new[x] == c)
 		{
-			type = new[x];
-			x++;
-			while (new[x + 1])
+			tmp = x;
+			while (new[x])
 			{
-				if (new[x] == type || new[x + 1] == type)
-					return (1);
-				++x;
+				new[x] = new[x + 1];
+				x++;
 			}
+			x = tmp;
+			nb++;
 		}
 	}
-	return (0);
+	new[x + 1] = '\0';
+	return (new);
+}
+
+char	*need_remove_quote_again_2(char *new, char *str, int *tab, int size)
+{
+	int	x;
+
+	x = 0;
+	while (x + 4 <= size + 1)
+	{
+		if (str[tab[x]] == str[tab[x + 1]]
+			&& str[tab[x + 2]] == str[tab[x + 3]])
+			remove_quote_from_new(new, str[tab[x + 2]]);
+		x += 4;
+	}
+	return (new);
+}
+
+char	*need_remove_quote_again(char *new, char *str)
+{
+	int	x;
+	int	quote;
+	int	*tab;
+	int	y;
+
+	x = -1;
+	y = -1;
+	quote = 0;
+	while (str[++x])
+	{
+		if (str[x] == 34 || str[x] == 39)
+			quote++;
+	}
+	if (quote % 2 != 0)
+		return (new);
+	tab = malloc (quote * sizeof(int));
+	x = -1;
+	while (str[++x])
+	{
+		if (str[x] == 34 || str[x] == 39)
+			tab[++y] = x;
+	}
+	new = need_remove_quote_again_2(new, str, tab, y);
+	return (free(tab), new);
 }
 
 char	*remove_quote(char *str)
@@ -111,45 +116,6 @@ char	*remove_quote(char *str)
 		}
 	}
 	new = remove_quote_2(str, new, nb, type);
-	if (need_remove_quote_again(new) == 1)
-		new = remove_quote(new);
+	new = need_remove_quote_again(new, str);
 	return (new);
-}
-
-int	count_word_2(char *arg, int x, int nb)
-{
-	if (arg[x] == 34)
-	{
-		while (arg[++x] != 34)
-			;
-	}
-	if (arg[x] == 39)
-	{
-		while (arg[++x] != 39)
-			;
-	}
-	if (arg[x] == 124)
-		nb++;
-	if (arg[x] != 124 && arg[x] != 9 && arg[x] != 32)
-	{
-		while (arg[x] && (arg[x] != 124 && arg[x] != 9 && arg[x] != 32))
-			x++;
-		if (!arg[x])
-			return (nb);
-	}
-	return (nb);
-}
-
-int	count_word(char *arg)
-{
-	int	x;
-	int	nb;
-
-	x = -1;
-	nb = 1;
-	while (arg[++x])
-	{
-		count_word_2(arg, x, nb);
-	}
-	return (nb);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+         #
+#    By: jquil <jquil@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/19 11:08:46 by jugingas          #+#    #+#              #
-#    Updated: 2023/10/26 16:57:36 by jugingas         ###   ########.fr        #
+#    Updated: 2023/10/30 12:39:08 by jquil            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC		=		src/main.c						\
 				src/utils3.c					\
 				src/utils4.c					\
 				src/utils5.c					\
+				src/utils6.c					\
 				src/badline.c					\
 				src/ft_memset.c					\
 				src/ft_calloc.c					\

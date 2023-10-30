@@ -6,11 +6,27 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:00:58 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/27 16:42:43 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 12:37:43 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*cut_str_env(char *env)
+{
+	int		x;
+	char	*tmp;
+
+	x = -1;
+	while (env[++x] && env[x] != '=')
+		;
+	tmp = malloc ((x + 1) * sizeof(char));
+	x = -1;
+	while (env[++x] && env[x] != '=')
+		tmp[x] = env[x];
+	tmp[x] = '\0';
+	return (tmp);
+}
 
 int	ft_strncmp(char *s1, char *s2, int n)
 {
@@ -77,14 +93,4 @@ char	*ft_epurstr(char *str)
 	if (!new)
 		return (perror("malloc"), NULL);
 	return (cpy(str, new));
-}
-
-char	**epur_tab(char **tab)
-{
-	int	i;
-
-	i = -1;
-	while (tab[++i])
-		tab[i] = ft_epurstr(tab[i]);
-	return (tab);
 }

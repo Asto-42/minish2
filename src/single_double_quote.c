@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 15:23:20 by jquil             #+#    #+#             */
-/*   Updated: 2023/10/27 15:18:17 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 12:32:52 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,20 +72,6 @@ int	expand_not_quoted(char *str, int dollar)
 		}
 	}
 	return (1);
-}
-
-int	ft_find_end(char *str, int start)
-{
-	int	end;
-
-	end = start + 1;
-	while (str[end])
-	{
-		if (str[end] == 124 && pipe_not_quoted(str, end) == 1)
-			return (end);
-		end++;
-	}
-	return (end);
 }
 
 bool	ft_arg_empty(char *arg)

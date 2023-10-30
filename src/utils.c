@@ -6,11 +6,22 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 11:38:51 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/25 18:01:16 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 12:37:36 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_strenvcmp(char *tmp, char *env)
+{
+	char	*comp;
+
+	comp = cut_str_env(env);
+	if (ft_strncmp(comp, tmp, ft_strlen(comp)) == 0
+		&& ft_strlen(comp) == ft_strlen(tmp))
+		return (free(comp), 1);
+	return (free(comp), 0);
+}
 
 void	power_free(char **tab)
 {
