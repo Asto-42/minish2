@@ -6,7 +6,7 @@
 /*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:59:22 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/31 11:17:07 by jugingas         ###   ########.fr       */
+/*   Updated: 2023/10/31 12:02:49 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*if_suite_in_expand(char *str, int x)
 	y = 0;
 	if (!str)
 		return (NULL);
-	tmp = ft_calloc((x - y), sizeof(char));
+	tmp = ft_calloc(ft_strlen(str + x) + 1, sizeof(char));
 	while (str[x])
 	{
 		tmp[y] = str[x];
@@ -104,7 +104,7 @@ char	*ft_extension_of_the_territory(t_shell *shell, char *s, int exp)
 
 	x = -1;
 	y = -1;
-	if (!ft_strncmp(s, "$?", ft_strlen(s)) && ft_need_expand(s) != -1)
+	if (!ft_strncmp(s, "$?", 20) && ft_need_expand(s) != -1)
 		return (free(s), itoa(shell->errno));
 	tmp = init_tmp_expand(s, &x);
 	tmp_2 = NULL;

@@ -6,7 +6,7 @@
 /*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 16:42:36 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/30 16:39:24 by jugingas         ###   ########.fr       */
+/*   Updated: 2023/10/31 12:09:45 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	call_builtins(t_shell *shell, int idx)
 		}
 	}
 	power_free(tab);
-	if (arg)
+	if (arg && ft_strlen(arg))
 		free(arg);
 	return (i);
 }

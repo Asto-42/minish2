@@ -6,7 +6,7 @@
 /*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 10:59:13 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/30 15:29:18 by jugingas         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:30:10 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,24 @@ int	check_before(char *str, int idx)
 	return (printf("unexpected error near token \'%c\'\n", str[idx]), 0);
 }
 
+int	check_backslash(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		if (str[i] != '\\')
+			return (1);
+	return (0);
+}
+
 int	badline(char *str, t_shell *shell)
 {
 	int	i;
 
 	i = -1;
+	if (!check_backslash(str))
+		return (printf("unexpected error near token \'\\\'\n"), -42);
 	while (str[++i])
 	{
 		if (str[i] == '|' && (!check_pipes(str + i) || !check_before(str, i)))

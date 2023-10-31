@@ -6,7 +6,7 @@
 /*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 15:18:51 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/30 16:26:27 by jugingas         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:35:52 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_echo(t_shell *shell, char *arg)
 
 	x = -1;
 	(void)shell;
+	wr = 0;
 	if (!arg || ft_strncmp(arg, "", 1) == 0)
 		return (printf("\n"), 0);
 	tab = ft_split(arg, ' ');
@@ -31,14 +32,13 @@ int	ft_echo(t_shell *shell, char *arg)
 	else
 		n = 0;
 	while (tab[++x + 1])
-		if (ft_strncmp(tab[x], "-n", 2))
+		if (ft_strncmp(tab[x], "-n", 2) || wr)
 			wr = printf("%s ", tab[x]);
-	if (ft_strncmp(tab[x], "-n", 2))
+	if (ft_strncmp(tab[x], "-n", 2) || wr)
 		wr = printf("%s", tab[x]);
 	if (n != 1)
 		wr = printf("\n");
-	power_free(tab);
-	return (is_neg(wr));
+	return (power_free(tab), is_neg(wr));
 }
 
 int	update_pwd(t_shell *shell)

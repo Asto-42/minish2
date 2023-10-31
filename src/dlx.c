@@ -6,7 +6,7 @@
 /*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 14:26:41 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/30 18:25:04 by jugingas         ###   ########.fr       */
+/*   Updated: 2023/10/31 12:17:53 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	is_alphanum(char c)
 	if (c >= 'a' && c <= 'z')
 		return (1);
 	if (c >= 'A' && c <= 'Z')
+		return (1);
+	if (c == '_')
 		return (1);
 	return (0);
 }
