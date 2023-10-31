@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe3.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:08:05 by jquil             #+#    #+#             */
-/*   Updated: 2023/10/30 12:38:16 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 18:29:44 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ int	is_redirect(char *str, char *next)
 	return (0);
 }
 
-void	free_it(t_pp *pp)
+void	free_it(t_pp *pp, char *str, t_shell *shell)
 {
 	power_free(pp->no_redirec);
 	free(pp->cmd_name);
 	power_free(pp->tab);
+	ft_exit(shell, str);
 }
 
 char	**ignore_redirections(char **tab, int fr)

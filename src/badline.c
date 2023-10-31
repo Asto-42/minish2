@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   badline.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 10:59:13 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/30 11:19:49 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 15:29:18 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ int	badline(char *str, t_shell *shell)
 		if ((str[i] == '>' || str[i] == '<')
 			&& !check_redirects(str + i))
 			return (-42);
+		if (ft_strlen(str) == 1 && str[0] == '.')
+			return (printf("unexpected error near token \'.\'\n"), -42);
+		if (ft_strlen(str) == 2 && str[0] == '.' && str[1] == '.')
+			return (printf("unexpected error near token \'.\'\n"), -42);
 		if (str[i] == '>' || str[i] == '<')
 			i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 15:23:20 by jquil             #+#    #+#             */
-/*   Updated: 2023/10/30 12:32:52 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/31 10:09:29 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,10 @@ int	expand_not_quoted(char *str, int dollar)
 		if (str[x] == 39)
 		{
 			p1 = x;
-			while (str[++x] != 39)
+			while (str[++x] && str[x] != 39)
 				;
+			if (!str[x])
+				return (0);
 			p2 = x;
 			if (dollar > p1 && dollar < p2)
 				return (0);

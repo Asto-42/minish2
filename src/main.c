@@ -6,7 +6,7 @@
 /*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 16:42:36 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/30 15:11:37 by jugingas         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:39:24 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	builtchild(int i, t_shell *shell, char *arg, int idx)
 		waitpid(pid, &status, 0);
 	if (WIFEXITED(status) && do_exit)
 		shell->errno = WEXITSTATUS(status);
+	print_write_error(shell, i);
 }
 
 int	call_builtins(t_shell *shell, int idx)

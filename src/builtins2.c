@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:59:22 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/30 12:37:23 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/31 11:17:07 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	*ft_extension_of_the_territory_2(t_shell *s, char *st,
 			return (st);
 		}
 	}
+	if (!s->env[x])
+		return (free(st), ft_strdup(""));
 	if (s->env[x])
 		st = ft_str_without_exp(st, exp);
 	return (remove_quote(st));
@@ -37,13 +39,13 @@ char	*init_tmp_expand(char *str, int *x)
 
 	if (str[0] == 39 || str[0] == 34)
 	{
-		tmp = malloc ((ft_strlen(str) - 1) * sizeof (char));
+		tmp = ft_calloc((ft_strlen(str)) + 1, sizeof (char));
 		++x[0];
 	}
 	else if (str[0] == 91 && str[1] == 36 && str[ft_strlen(str)] == 93)
-		tmp = malloc ((ft_strlen(str) - 3));
+		tmp = ft_calloc((ft_strlen(str) - 3), sizeof(char));
 	else
-		tmp = malloc (ft_strlen(str));
+		tmp = ft_calloc(ft_strlen(str) + 1, sizeof(char));
 	if (!tmp)
 		return (NULL);
 	return (tmp);
@@ -57,7 +59,7 @@ char	*if_suite_in_expand(char *str, int x)
 	y = 0;
 	if (!str)
 		return (NULL);
-	tmp = malloc ((x - y) * sizeof(char));
+	tmp = ft_calloc((x - y), sizeof(char));
 	while (str[x])
 	{
 		tmp[y] = str[x];
@@ -69,7 +71,7 @@ char	*if_suite_in_expand(char *str, int x)
 	return (tmp);
 }
 
-char	*assemble(char *str, char *tmp)
+char	*assemble(char *str, char *tmp, char *dodge)
 {
 	char	*res;
 	int		x;
@@ -80,6 +82,11 @@ char	*assemble(char *str, char *tmp)
 	if (!tmp)
 		return (str);
 	res = ft_calloc (ft_strlen(str) + 1 + ft_strlen(tmp), sizeof(char));
+	while (str[++x] && str[x + 1] == dodge[x])
+		;
+	while (str[++x] && str[x] == tmp[++y])
+		;
+	y = -1;
 	while (str[++x])
 		res[++y] = str[x];
 	x = -1;
@@ -103,8 +110,6 @@ char	*ft_extension_of_the_territory(t_shell *shell, char *s, int exp)
 	tmp_2 = NULL;
 	if (!tmp)
 		return (free(s), NULL);
-	while (s[++x] != '$')
-		;
 	while (s[++x] && s[x] != 34 && s[x] != 39)
 		if (s[x] != 39 && s[x] != 34 && s[x] != 36 && (s[x] < 91 || s[x] > 93))
 			tmp[++y] = s[x];
@@ -112,7 +117,9 @@ char	*ft_extension_of_the_territory(t_shell *shell, char *s, int exp)
 	if (x + 1 < ft_strlen(s))
 		tmp_2 = if_suite_in_expand(s, x + 1);
 	s = ft_extension_of_the_territory_2(shell, s, tmp, exp);
+	if (tmp_2 && s && ft_strlen(s) == 0 && ft_strlen(tmp_2) > 0)
+		return (free(s), free(tmp), tmp_2);
 	if (x + 1 < ft_strlen(s))
-		s = assemble(s, tmp_2);
+		s = assemble(s, tmp_2, tmp);
 	return (free(tmp), s);
 }

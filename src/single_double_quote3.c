@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:12:59 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/24 18:30:22 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/31 10:53:27 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,12 @@ int	ft_need_expand(char *str)
 
 	x = -1;
 	while (str[++x])
-		if (str[x] == '$')
+	{
+		if (str[x] == '$' && str[x + 1] != 34 && str[x + 1] != 39)
 			return (x);
+		else if (str[x] == '$' && (str[x + 1] == 34 || str[x + 1] == 39))
+			return (-2);
+	}
 	return (-1);
 }
 

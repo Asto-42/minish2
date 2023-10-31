@@ -6,7 +6,7 @@
 /*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:15:13 by jquil             #+#    #+#             */
-/*   Updated: 2023/10/30 14:35:26 by jugingas         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:17:49 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,40 +79,53 @@ char	**resplit_tab(char **tab)
 	return (new);
 }
 
+char	*epur_str_expand(char *str)
+{
+	int		x;
+	int		y;
+	char	*new;
+
+	x = -1;
+	y = -1;
+	new = ft_calloc((ft_strlen(str)) + 1, sizeof(char));
+	if (str[++x] == '$')
+	{
+		if (str[++x] == 34 || str[x] == 39)
+		{
+			while (str[++x] && str[x] != 34 && str[x] != 39)
+				new[++y] = str[x];
+			if (str[x] == 34 || str[x] == 39)
+			{
+				while (str[++x] && str[x] != 34 && str[x] != 39)
+					new[++y] = str[x];
+			}
+		}
+	}
+	return (free(str), new);
+}
+
 char	**ft_split_str(t_shell *shell, char *str, char **tab)
 {
 	int		z;
 
 	z = -1;
-	(void)shell;
 	tab = ft_split(str, ' ');
 	if (!tab)
 		return (NULL);
 	while (tab[++z])
 	{
-		if (ft_need_expand(tab[z]) != -1
+		if (ft_need_expand(tab[z]) > -1
 			&& expand_not_quoted(tab[z], ft_need_expand(tab[z])) == 1)
 		{
 			tab[z] = ft_extension_of_the_territory(shell, tab[z],
 					ft_need_expand(tab[z]) + 1);
 		}
+		else if (ft_need_expand(tab[z]) == -2)
+			tab[z] = epur_str_expand(tab[z]);
 		else
 			tab[z] = remove_quote(tab[z]);
 	}
 	tab[z] = NULL;
 	tab = resplit_tab(tab);
 	return (tab);
-}
-
-bool	ft_next_quote(char *arg, int type, int x)
-{
-	int	y;
-
-	y = x;
-	while (arg[++y])
-	{
-		if (arg[y] == type)
-			return (1);
-	}
-	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:10:27 by jquil             #+#    #+#             */
-/*   Updated: 2023/10/24 18:29:30 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 16:17:08 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,14 @@ int	ft_unset(t_shell *shell, char *arg)
 
 int	ft_env(t_shell *shell, char *arg)
 {
-	int		i;
+	int	i;
+	int	wr;
 
 	i = -1;
 	(void)arg;
 	while (shell->env[++i])
-		printf("%s\n", shell->env[i]);
+		wr = printf("%s\n", shell->env[i]);
+	if (wr < 0)
+		return (1);
 	return (0);
 }

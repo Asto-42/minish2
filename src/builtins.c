@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 11:40:26 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/27 15:08:42 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/30 16:33:10 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,17 @@
 int	ft_pwd(t_shell *shell, char *arg)
 {
 	char	cwd[MAX_PATH_SIZE];
+	int		written;
 
 	(void)shell;
 	(void)arg;
+	written = 0;
 	if (getcwd(cwd, sizeof(cwd)))
-		printf("%s\n", cwd);
+		written = printf("%s\n", cwd);
 	else
 		perror("cwd");
+	if (written < 0)
+		return (1);
 	return (0);
 }
 

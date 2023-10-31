@@ -6,7 +6,7 @@
 /*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 14:26:41 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/30 14:26:50 by jugingas         ###   ########.fr       */
+/*   Updated: 2023/10/30 18:25:04 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ char	*douillax(char *str)
 	in_quote = 0;
 	while (str[++i])
 	{
-		if ((str[i] == '\'' && check_endz(str + i, '\''))
-			|| (str[i] == '\"' && check_endz(str + i, '\"')))
+		if (((str[i] == '\'' && check_endz(str + i, '\''))
+				|| (str[i] == '\"' && check_endz(str + i, '\"'))) && !in_quote)
 			in_quote = 1;
 		else if ((str[i] == '\'' || str[i] == '\"') && in_quote)
 			in_quote = 0;
@@ -53,4 +53,29 @@ char	*anti_douillax(char *str)
 			str[i] = '|';
 	}
 	return (str);
+}
+
+int	is_neg(int i)
+{
+	if (i < 0)
+		return (1);
+	else
+		return (0);
+}
+
+void	print_write_error(t_shell *shell, int i)
+{
+	if (shell->errno == 1 && (i == 0 || i == 2 || i == 5))
+		printf("write error: No space left on device\n");
+}
+
+int	is_alphanum(char c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	if (c >= 'a' && c <= 'z')
+		return (1);
+	if (c >= 'A' && c <= 'Z')
+		return (1);
+	return (0);
 }

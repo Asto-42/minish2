@@ -6,7 +6,7 @@
 /*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 11:41:49 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/30 15:06:36 by jugingas         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:18:18 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	main_core(t_shell *shell);
 char	*anti_douillax(char *str);
 char	*douillax(char *str);
 int		check_endz(char *str, char c);
-void	free_it(t_pp *pp);
+void	free_it(t_pp *pp, char *str, t_shell *shell);
 
 //-------- Utils --------
 
@@ -107,6 +107,9 @@ void	power_free(char **tab);
 int		mnsh_strcmp(char *s1, char *s2);
 int		ft_envstrcmp(char *s1, char *s2);
 char	*get_args(char *line);
+void	print_write_error(t_shell *shell, int i);
+int		is_neg(int i);
+int		is_alphanum(char c);
 char	*get_cmd(char *line, char **env);
 char	*get_cmd_name(char *line);
 int		ft_strlen(const char *str);

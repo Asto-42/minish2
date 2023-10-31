@@ -6,7 +6,7 @@
 /*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 18:21:22 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/30 15:08:18 by jugingas         ###   ########.fr       */
+/*   Updated: 2023/10/30 18:32:48 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,19 @@ int	check_redirect(char *cmd)
 	char	**cmdtab;
 	int		i;
 	int		fd;
+	int		tmp_fd;
 
 	cmdtab = ft_split(cmd, ' ');
 	i = -1;
 	fd = 0;
+	tmp_fd = 0;
 	while (cmdtab[++i])
+	{
+		tmp_fd = fd;
 		fd = redirect(cmdtab, i);
+		if (tmp_fd > 0 && tmp_fd != fd)
+			close(tmp_fd);
+	}
 	power_free(cmdtab);
 	return (fd);
 }
@@ -47,9 +54,9 @@ void	child(t_pp *pp, t_shell *shell, char *cmd, int idx)
 					pp->no_redirec[i] = anti_douillax(pp->no_redirec[i]);
 				execve(pp->cmd_name, pp->no_redirec, shell->env);
 				printf("%s: command not found\n", pp->cmd_name);
-				ft_exit(shell, ft_strdup("127"));
+				free_it(pp, ft_strdup("127"), shell);
 			}
-			free_it(pp);
+			free_it(pp, ft_strdup("0"), shell);
 		}
 		ft_exit(shell, ft_strdup("0"));
 	}

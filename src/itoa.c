@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   itoa.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:14:07 by jquil             #+#    #+#             */
-/*   Updated: 2023/10/25 15:14:49 by jquil            ###   ########.fr       */
+/*   Updated: 2023/10/31 11:17:55 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,17 @@ char	*itoa(int nb)
 	if (!str)
 		return (perror("malloc"), NULL);
 	return (itoa_2(str, nb, len));
+}
+
+bool	ft_next_quote(char *arg, int type, int x)
+{
+	int	y;
+
+	y = x;
+	while (arg[++y])
+	{
+		if (arg[y] == type)
+			return (1);
+	}
+	return (0);
 }

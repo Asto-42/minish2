@@ -6,7 +6,7 @@
 /*   By: jugingas <jugingas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:57:38 by jugingas          #+#    #+#             */
-/*   Updated: 2023/10/26 14:19:16 by jugingas         ###   ########.fr       */
+/*   Updated: 2023/10/30 18:36:11 by jugingas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,29 @@ int	check_arg(char *arg)
 {
 	int	i;
 	int	equal;
+	int	name;
+	int	val;
 
 	i = 0;
 	equal = 0;
+	name = 0;
+	val = 0;
 	while (arg[i])
 	{
+		if (!name && (!is_alphanum(arg[i])
+				|| (arg[0] >= '0' && arg[0] <= '9')))
+			return (printf("Export: Invalid format\n"), 1);
+		if (arg[i] != ' ' && arg[i + 1] && arg[i + 1] == '=' && !equal)
+			name = 1;
+		if (arg[i] != ' ' && equal)
+			val = 1;
 		if (arg[i] == '=')
 			equal++;
 		i++;
 	}
-	if (equal != 1)
-		return (0);
-	return (1);
+	if (equal != 1 || !name || !val)
+		return (printf("Export: Invalid format\n"), 1);
+	return (0);
 }
 
 int	check_exist(char *arg, t_shell *shell)
@@ -86,26 +97,17 @@ void	update_env(char *arg, t_shell *shell, int fr_arg)
 int	ft_export(t_shell *shell, char *arg)
 {
 	char	**args;
-	int		i;
 
 	args = NULL;
-	if (!arg || !ft_strlen(arg))
-		return (0);
+	if (!arg || !ft_strlen(arg) || check_arg(arg))
+		return (1);
 	else
 	{
 		args = ft_split(arg, 0);
-		i = 0;
-		while (args[i])
-		{
-			if (check_arg(args[i]))
-			{
-				if (!check_exist(args[i], shell))
-					add_env(args[i], shell);
-				else
-					update_env(args[i], shell, 0);
-			}
-			i++;
-		}
+		if (!check_exist(args[0], shell))
+			add_env(args[0], shell);
+		else
+			update_env(args[0], shell, 0);
 	}
 	power_free(args);
 	return (0);
